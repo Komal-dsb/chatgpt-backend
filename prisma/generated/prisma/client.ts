@@ -59,3 +59,13 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model chats
+ * 
+ */
+export type chats = Prisma.chatsModel
+/**
+ * Model messages
+ * 
+ */
+export type messages = Prisma.messagesModel

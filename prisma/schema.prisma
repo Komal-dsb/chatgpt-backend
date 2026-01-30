@@ -16,8 +16,10 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
   sessions      Session[]
   accounts      Account[]
+  chats         chats[]
 
   @@unique([email])
   @@map("user")
@@ -32,6 +34,7 @@ model Session {
   ipAddress String?
   userAgent String?
   userId    String
+
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
@@ -70,3 +73,30 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+model chats {
+  id         String  @id @default(uuid())
+  userId     String
+  title      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt   
+
+  messages   messages[]
+  user       User  @relation(fields: [userId], references:[id], onDelete:Cascade)
+}
+
+
+model messages {
+  id            String  @id @default(uuid())
+  userId        String 
+  chatId        String
+  message       String
+  senderType    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt 
+
+  chat         chats  @relation(fields:[chatId], references:[id], onDelete:Cascade)
+}
+
+
+                               
